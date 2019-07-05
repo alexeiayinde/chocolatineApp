@@ -32,7 +32,6 @@ public class App {
 //        emf.close();
 
         Menu menu = new Menu();
-
     }
 
 }

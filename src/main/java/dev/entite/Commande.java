@@ -1,38 +1,48 @@
 package dev.entite;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
-//@Entity
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Commande {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    // @Column(length = 512)
-    private String referenceCommande;
-    // @Column
-    private LocalDateTime dateHeureCommande;
-//    @Enumerated
-    private Statut statutCommande;
 
-    // !!!!!!!!!!! TODO @ManyToMany !!!!!!!!!!!!
-    private List<Chocolatine> panier;
+    @Column(name = "reference", unique = true)
+    private String reference;
+
+    @Column(name = "dateHeure")
+    private LocalDateTime dateHeureCommande;
+
+    @Enumerated
+    private Statut statut;
+
+    @OneToMany(mappedBy = "commandeDetails")
+    private Set<CommandeDetails> panier;
+
 //    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-//    @JoinColumn(name = "livreur_id")
+//    @JoinColumn(name = "id")
     private Livreur livreur;
 
     public Commande() {
+        this.reference = UUID.randomUUID().toString();
+        this.dateHeureCommande = LocalDateTime.now();
+        this.statut = Statut.EN_ATTENTE;
     }
 
-    public Commande(Integer id, String referenceCommande, LocalDateTime dateHeureCommande, Statut statutCommande, List<Chocolatine> panier,
-            Livreur livreur) {
-        this.id = id;
-        this.referenceCommande = referenceCommande;
-        this.dateHeureCommande = dateHeureCommande;
-        this.statutCommande = statutCommande;
-        this.panier = panier;
-        this.livreur = livreur;
+    public void addCommandeDetails(CommandeDetails details) {
+        this.panier.add(details);
     }
 
     public Integer getId() {
@@ -44,11 +54,11 @@ public class Commande {
     }
 
     public String getReferenceCommande() {
-        return referenceCommande;
+        return reference;
     }
 
     public void setReferenceCommande(String referenceCommande) {
-        this.referenceCommande = referenceCommande;
+        this.reference = referenceCommande;
     }
 
     public LocalDateTime getDateHeureCommande() {
@@ -60,18 +70,18 @@ public class Commande {
     }
 
     public Statut getStatutCommande() {
-        return statutCommande;
+        return statut;
     }
 
     public void setStatutCommande(Statut statutCommande) {
-        this.statutCommande = statutCommande;
+        this.statut = statutCommande;
     }
 
-    public List<Chocolatine> getPanier() {
+    public Set<CommandeDetails> getPanier() {
         return panier;
     }
 
-    public void setPanier(List<Chocolatine> panier) {
+    public void setPanier(Set<CommandeDetails> panier) {
         this.panier = panier;
     }
 
@@ -89,11 +99,11 @@ public class Commande {
         builder.append("Commande [id=");
         builder.append(id);
         builder.append(", referenceCommande=");
-        builder.append(referenceCommande);
+        builder.append(reference);
         builder.append(", dateHeureCommande=");
         builder.append(dateHeureCommande);
         builder.append(", statutCommande=");
-        builder.append(statutCommande);
+        builder.append(statut);
         builder.append(", panier=");
         builder.append(panier);
         builder.append(", livreur=");

@@ -5,7 +5,7 @@ import javax.persistence.Persistence;
 
 public class EntityManagerFactoryService {
 
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("rappels-jpa");
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("vente-choco");
 
     public EntityManagerFactory getEMF() {
         return emf;

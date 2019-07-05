@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
-			 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-			 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
-			 version="2.2">
-	
-	<persistence-unit name="rappels-jpa">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+	version="2.2">
+
+	<persistence-unit name="vente-choco">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-		
-	<!-- <class>main.java.org.ss.jpa.intro.domain.Address</class>
-		<class>main.java.org.ss.jpa.intro.domain.Contact</class> -->
-			
+
+		<!-- <class>main.java.org.ss.jpa.intro.domain.Address</class> <class>main.java.org.ss.jpa.intro.domain.Contact</class> -->
+
 		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/rappels-JPA?useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC" />
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:mysql://localhost:3306/rappels-jpa?useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC" />
+			<property name="javax.persistence.jdbc.driver"
+				value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<property name="javax.persistence.jdbc.password" value="" />
-			
-			<property name="hibernate.archive.autodetection" value="class"/>	<!-- Indique si un scan est effectué automatiquement pour trouver les entités. Si désactivé, 
-																						les entités sont énumérés avec des balises classe -->
-		<!-- <property name="hibernate.show_sql" value="true"/>		-->			<!-- Pour voir les requêtes SQL dans les logs -->
-			<property name="hibernate.format_sql" value="true"/>				
-		<!-- <property name="hibernate.hbm2ddl.auto" value="update"/> -->			<!-- définit si un persist écrase ou met à jour la table -->
-			<property name="hibernate.use_sql_comments" value="true"/>
-		 <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL57Dialect"/>
+
+			<property name="hibernate.archive.autodetection"
+				value="class" />	<!-- Indique si un scan est effectué automatiquement pour trouver les entités. 
+				Si désactivé, les entités sont énumérés avec des balises classe -->
+			<property name="hibernate.show_sql" value="false" />				<!-- Pour voir les requêtes SQL dans les logs -->
+			<property name="hibernate.format_sql" value="true" />
+			<!-- <property name="hibernate.hbm2ddl.auto" value="update"/> -->			<!-- définit si un persist écrase ou met à jour la table -->
+			<property name="hibernate.use_sql_comments" value="true" />
+			<property name="hibernate.dialect"
+				value="org.hibernate.dialect.MySQL57Dialect" />
 		</properties>
 	</persistence-unit>
 </persistence>

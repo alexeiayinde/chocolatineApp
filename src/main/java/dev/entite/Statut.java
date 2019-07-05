@@ -2,6 +2,6 @@ package dev.entite;
 
 public enum Statut {
 
-    CREER, EN_LIVRAISON, LIVRE;
+    EN_ATTENTE, EN_LIVRAISON, LIVRE;
 
 }

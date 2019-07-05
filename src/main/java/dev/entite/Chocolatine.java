@@ -1,32 +1,44 @@
 package dev.entite;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Chocolatine {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @Column(unique = true)
     private String nom;
+
     @Column
     private Float temperature;
+
     @Column
     private Float poids;
 
-    public Chocolatine(Integer id, String nom, Float temperature, Float poids) {
-        this.id = id;
+    @OneToMany(mappedBy = "commandeDetails")
+    private Set<CommandeDetails> commandesDetail;
+
+    public Chocolatine() {
+    }
+
+    public Chocolatine(String nom, Float temperature, Float poids) {
         this.nom = nom;
         this.temperature = temperature;
         this.poids = poids;
     }
 
-    public Chocolatine() {
+    public void addCommandeDetails(CommandeDetails details) {
+        this.commandesDetail.add(details);
     }
 
     public Integer getId() {
