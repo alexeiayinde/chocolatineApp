@@ -1,5 +1,6 @@
 package dev.entite;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -24,17 +25,23 @@ public class Chocolatine {
 
     @Column
     private Float poids;
+    
+    @Column
+    private Float prix;
 
     @OneToMany(mappedBy = "commandeDetails")
     private Set<CommandeDetails> commandesDetail;
 
     public Chocolatine() {
+    	this.commandesDetail = new HashSet<>();
     }
 
-    public Chocolatine(String nom, Float temperature, Float poids) {
+    public Chocolatine(String nom, Float temperature, Float poids, Float prix) {
+    	this();
         this.nom = nom;
         this.temperature = temperature;
         this.poids = poids;
+        this.prix = prix;
     }
 
     public void addCommandeDetails(CommandeDetails details) {
@@ -73,7 +80,23 @@ public class Chocolatine {
         this.poids = poids;
     }
 
-    @Override
+    public Float getPrix() {
+		return prix;
+	}
+
+	public void setPrix(Float prix) {
+		this.prix = prix;
+	}
+
+	public Set<CommandeDetails> getCommandesDetail() {
+		return commandesDetail;
+	}
+
+	public void setCommandesDetail(Set<CommandeDetails> commandesDetail) {
+		this.commandesDetail = commandesDetail;
+	}
+
+	@Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("Chocolatine (id=");
@@ -84,6 +107,8 @@ public class Chocolatine {
         builder.append(temperature);
         builder.append(", \n\tPoids = ");
         builder.append(poids);
+        builder.append(", \n\tPrix = ");
+        builder.append(prix);
         builder.append("\n");
         return builder.toString();
     }

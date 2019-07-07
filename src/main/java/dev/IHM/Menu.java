@@ -37,13 +37,17 @@ public class Menu {
 
         System.out.println("*********** Bienvenue chez Glen ***********");
 
-        // TODO : exception si choix ne correspond pas à la liste
         while (choix != 9) {
 
             initMenu();
 
             System.out.print("\nChoix = ");
             choix = scannerService.getScanner().nextInt();
+            
+            while (!listeOptionsIHM.containsKey(choix)) {
+            	System.out.println("Choix invalide ! Veuillez choisir parmi les options disponibles. \nChoix = ");
+                choix = scannerService.getScanner().nextInt();
+            }
 
             listeOptionsIHM.get(choix).executer();
             try {

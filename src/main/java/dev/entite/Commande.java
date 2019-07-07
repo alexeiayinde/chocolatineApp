@@ -1,8 +1,8 @@
 package dev.entite;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,7 +36,7 @@ public class Commande {
     private Livreur livreur;
 
     public Commande() {
-        this.reference = UUID.randomUUID().toString();
+    	this.panier = new HashSet<>();
         this.dateHeureCommande = LocalDateTime.now();
         this.statut = Statut.EN_ATTENTE;
     }
@@ -92,23 +92,33 @@ public class Commande {
     public void setLivreur(Livreur livreur) {
         this.livreur = livreur;
     }
+    
+    public Float getMontant() {
+    	float montant = 0;
+    	for (CommandeDetails details : panier) {
+    		montant = details.getQuantite() * details.getChocolatine().getPrix();
+    	}
+    	
+    	return montant;
+    }
 
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("Commande [id=");
+        builder.append("Commande (id =");
         builder.append(id);
-        builder.append(", referenceCommande=");
+        builder.append(", référence =");
         builder.append(reference);
-        builder.append(", dateHeureCommande=");
+        builder.append(", date de commande =");
         builder.append(dateHeureCommande);
-        builder.append(", statutCommande=");
+        builder.append(", statut =");
         builder.append(statut);
-        builder.append(", panier=");
-        builder.append(panier);
-        builder.append(", livreur=");
+        builder.append(", livreur =");
         builder.append(livreur);
-        builder.append("]");
+        builder.append(") \n\tPanier : ");
+        builder.append(panier);
+        builder.append("\n\tPrix total de la commande : ");
+        builder.append(getMontant());
         return builder.toString();
     }
 

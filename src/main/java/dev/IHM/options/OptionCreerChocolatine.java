@@ -11,6 +11,7 @@ public class OptionCreerChocolatine extends OptionIHM {
     private String nomChocolatine;
     private Float temperatureChocolatine;
     private Float poidsChocolatine;
+    private Float prixChocolatine;
 
     private ScannerService scannerService = Constantes.SCANNER_SERVICE;
 
@@ -30,7 +31,11 @@ public class OptionCreerChocolatine extends OptionIHM {
 
         System.out.println("Veuillez saisir le poids de la chocolatine : ");
         poidsChocolatine = scannerService.getScanner().nextFloat();
-        chocolatineService.creerChocolatine(nomChocolatine, temperatureChocolatine, poidsChocolatine);
+        
+        System.out.println("Veuillez saisir le prix de la chocolatine : ");
+        prixChocolatine = scannerService.getScanner().nextFloat();
+        
+        chocolatineService.creerChocolatine(nomChocolatine, temperatureChocolatine, poidsChocolatine, prixChocolatine);
     }
 
 }

@@ -15,17 +15,27 @@ public class CommandeDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    
     @ManyToOne
     @JoinColumn(name = "choco_id")
     private Chocolatine chocolatine;
+    
     @Column
     private Integer quantite;
+    
     @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "commande_id")
     private Commande commande;
 
     public CommandeDetails() {
         this.chocolatine.addCommandeDetails(this);
+    }
+    
+    public CommandeDetails(Chocolatine chocolatine, Integer quantite, Commande commande) {
+    	this();
+    	this.chocolatine = chocolatine;
+    	this.quantite = quantite;
+    	this.commande = commande;
     }
 
     public Integer getId() {
@@ -59,15 +69,13 @@ public class CommandeDetails {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("CommandeDetails [id=");
+        builder.append("Détails de la commande (id=");
         builder.append(id);
-        builder.append(", chocolatine=");
-        builder.append(chocolatine);
-        builder.append(", quantite=");
+        builder.append(") : \n\tChocolatine = ");
+        builder.append(chocolatine.getNom());
+        builder.append(", \n\tQuantité = ");
         builder.append(quantite);
-        builder.append(", commande=");
-        builder.append(commande);
-        builder.append("]");
+        builder.append(".");
         return builder.toString();
     }
 

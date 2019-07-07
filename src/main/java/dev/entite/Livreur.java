@@ -2,15 +2,21 @@ package dev.entite;
 
 import java.util.Set;
 
-//@Entity
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Livreur {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-//    @Column(length = 512)
+    @Column
     private String nom;
-//    @Column(length = 512)
+    @Column
     private String prenom;
 
     // @OneToMany(mappedBy = "commande")
@@ -19,11 +25,13 @@ public class Livreur {
     public Livreur() {
     }
 
-    public Livreur(Integer id, String nom, String prenom, Set<Commande> listeCommandes) {
-        this.id = id;
+    public Livreur(String nom, String prenom) {
         this.nom = nom;
         this.prenom = prenom;
-        this.listeCommandes = listeCommandes;
+    }
+    
+    public void addCommande(Commande commande) {
+    	this.listeCommandes.add(commande);
     }
 
     public Integer getId() {
